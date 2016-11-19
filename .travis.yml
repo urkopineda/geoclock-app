@@ -8,17 +8,30 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
     - extra-android-support
-    
+    - sys-img-armeabi-v7a-android-25
+
   licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=8
+
 jdk:
-    - oraclejdk8
+  - oraclejdk8
     
 before_install:
-    - chmod +x gradlew
+  - chmod +x gradlew
+
+before_script:
+  - echo no | android create avd --force --name test --target android-25 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window -no-boot-anim &
+  - android-wait-for-emulator
     
 script:
-    - ./gradlew build connectedCheck
+  - ./gradlew build connectedCheck --stacktrace
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
