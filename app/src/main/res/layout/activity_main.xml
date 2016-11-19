@@ -5,4 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <EditText
+        android:id="@+id/saveValue"
+        android:layout_weight=".80"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Save value as VAL..." />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:onClick="" />
+
 </LinearLayout>
