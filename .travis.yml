@@ -2,9 +2,6 @@ language: android
 
 env:
   global:
-    - API_LEVEL_ANDROID   = 25
-    - API_LEVEL_EMULATOR  = 25
-    - BUILD_TOOLS_VERSION = 25.0.0
     - ADB_INSTALL_TIMEOUT = 20
 
 jdk:
@@ -17,14 +14,12 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-$BUILD_TOOLS_VERSION
-    - android-$API_LEVEL_ANDROID
-    - extra
-    - add-on
+    - build-tools-25.0.0
+    - android-25
     - extra-android-m2repository
     - extra-google-m2repository
     - extra-android-support
-    - sys-img-armeabi-v7a-android-$API_LEVEL_EMULATOR
+    - sys-img-armeabi-v7a-android-25
 
   licenses:
     - 'android-sdk-preview-license-.+'
@@ -32,7 +27,7 @@ android:
     - 'google-gdk-license-.+'
 
 before_script:
-  - echo no | android create avd --force --name test --target android-$API_LEVEL_EMULATOR --abi armeabi-v7a
+  - echo no | android create avd --force --name test --target android-25 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window -no-boot-anim &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
