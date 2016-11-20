@@ -2,11 +2,11 @@ language: android
 
 env:
   global:
-    - API_LEVEL_ANDROID = 25
-    - API_LEVEL_EMULATOR = 23
-    - BUILD_TOOLS = 25.0.0
-    - ADB_INSTALL_TIMEOUT = 20
-    - ANDROID_ABI = armeabi-v7a
+    - API_LEVEL_ANDROID=25
+    - API_LEVEL_EMULATOR=23
+    - BUILD_TOOLS=25.0.0
+    - ADB_INSTALL_TIMEOUT=20
+    - ANDROID_ABI=armeabi-v7a
 
 jdk:
   - oraclejdk8
