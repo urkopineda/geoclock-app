@@ -2,10 +2,11 @@ language: android
 
 env:
   global:
-    - API_LEVEL_ANDROID   = 25 
-    - API_LEVEL_EMULATOR  = 24 
-    - BUILD_TOOLS_VERSION = 25.0.0 
-    - ADB_INSTALL_TIMEOUT = 20 
+    - API_LEVEL_ANDROID = 25
+    - API_LEVEL_EMULATOR = 23
+    - BUILD_TOOLS = 25.0.0
+    - ADB_INSTALL_TIMEOUT = 20
+    - ANDROID_ABI = armeabi-v7a
 
 jdk:
   - oraclejdk8
@@ -17,26 +18,21 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-$BUILD_TOOLS_VERSION
+    - build-tools-$BUILD_TOOLS
     - android-$API_LEVEL_ANDROID
     - extra-android-m2repository
     - extra-google-m2repository
     - extra-android-support
+    - sys-img-armeabi-v7a-android-$API_LEVEL_ANDROID
     - sys-img-armeabi-v7a-android-$API_LEVEL_EMULATOR
 
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
 before_script:
-  - echo no | android create avd --force --name test --target android-$API_LEVEL_EMULATOR --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window -no-boot-anim &
+  - echo no | android create avd --force -n test -t "android-"$API_LEVEL_EMULATOR --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-  - adb shell input keyevent 82 &
     
 script:
-  - ./gradlew build connectedCheck --stacktrace
+  - ./gradlew clean build connectedCheck --stacktrace
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
